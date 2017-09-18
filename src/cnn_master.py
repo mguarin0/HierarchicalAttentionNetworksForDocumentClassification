@@ -129,7 +129,6 @@ if FLAGS.run_type == "train":
 
 elif FLAGS.run_type == "test":
     print("Testing...\n")
-    print(paths.CHECKPOINTS_CNN)
 
     checkpoint_file = tf.train.latest_checkpoint(paths.CHECKPOINTS_CNN)
     graph = tf.Graph()

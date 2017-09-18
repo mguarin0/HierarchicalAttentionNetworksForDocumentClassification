@@ -48,7 +48,7 @@ logger.setLevel(logging.INFO)
 
 formatter = logging.Formatter("%(asctime)s:%(name)s:%(message)s")
 currentTime = str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
-logFileName = os.path.join(paths.LOGS_DIR, "HAN_TxtClassification_{}.log".format(currentTime))
+logFileName = os.path.join(paths.LOGS_DIR, "HAN_GRU_TxtClassification_{}.log".format(currentTime))
 
 fileHandler = logging.FileHandler(logFileName)
 fileHandler.setLevel(logging.ERROR)
@@ -109,7 +109,7 @@ if FLAGS.run_type == "train":
                     han.input_y: y_batch,
                     han.sentence_lengths: docsize,
                     han.word_lengths: sent_size,
-                    han.train: True
+                    han.is_training: True
                 }
 
                 _, step, loss, accuracy = sess.run([train_op, global_step, han.loss, han.accuracy], feed_dict=feed_dict)
@@ -138,8 +138,6 @@ if FLAGS.run_type == "train":
 
 elif FLAGS.run_type == "test":
     print("Testing...\n")
-    print(paths.CHECKPOINTS_HAN_GRU)
-    print(os.listdir(paths.CHECKPOINTS_HAN_GRU))
 
     checkpoint_file = tf.train.latest_checkpoint(paths.CHECKPOINTS_HAN_GRU)
     graph = tf.Graph()
@@ -161,7 +159,7 @@ elif FLAGS.run_type == "test":
             input_x = graph.get_operation_by_name("input_x").outputs[0]
             word_lengths = graph.get_operation_by_name("word_lengths").outputs[0]
             sentence_lengths = graph.get_operation_by_name("sentence_lengths").outputs[0]
-            train = graph.get_operation_by_name("train").outputs[0]
+            is_training = graph.get_operation_by_name("is_training").outputs[0]
 
             # Tensors we want to evaluate
             predictions = graph.get_operation_by_name("classifier_output/predictions").outputs[0]
@@ -176,7 +174,7 @@ elif FLAGS.run_type == "test":
                 x_batch, y_batch = zip(*batch)
                 x_batch, docsize, sent_size = imdb.hanformater(inputs=x_batch)
                 batch_predictions = sess.run(predictions, {input_x:x_batch, word_lengths:sent_size,
-                                             sentence_lengths:docsize, train:True})
+                                             sentence_lengths:docsize, is_training:True})
                 all_predictions = np.concatenate([all_predictions, batch_predictions])
         sess.close()
 

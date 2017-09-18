@@ -109,7 +109,7 @@ if FLAGS.run_type == "train":
                     han.input_y: y_batch,
                     han.sentence_lengths: docsize,
                     han.word_lengths: sent_size,
-                    han.train: True
+                    han.is_training: True
                 }
 
                 _, step, loss, accuracy = sess.run([train_op, global_step, han.loss, han.accuracy], feed_dict=feed_dict)
@@ -138,8 +138,6 @@ if FLAGS.run_type == "train":
 
 elif FLAGS.run_type == "test":
     print("Testing...\n")
-    print(paths.CHECKPOINTS_HAN)
-    print(os.listdir(paths.CHECKPOINTS_HAN))
 
     checkpoint_file = tf.train.latest_checkpoint(paths.CHECKPOINTS_HAN)
     graph = tf.Graph()
@@ -176,7 +174,7 @@ elif FLAGS.run_type == "test":
                 x_batch, y_batch = zip(*batch)
                 x_batch, docsize, sent_size = imdb.hanformater(inputs=x_batch)
                 batch_predictions = sess.run(predictions, {input_x:x_batch, word_lengths:sent_size,
-                                             sentence_lengths:docsize, train:True})
+                                             sentence_lengths:docsize, is_training:True})
                 all_predictions = np.concatenate([all_predictions, batch_predictions])
         sess.close()
 
