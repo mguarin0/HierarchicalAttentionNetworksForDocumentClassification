@@ -10,14 +10,11 @@ The Hierarchical Attention Network is a novel deep learning architecture that ta
 This model uses two levels of LSTM encoders at the word and sentences level in order to build the word and sentence level representations of the document. The attention mechanism is used to attribute importance at the word and sentence level.
 
 <figure>
-<img src="lib/imgs/AttentionDistribution.png" height="700px" width="700px" align="left">
+<img src="lib/imgs/AttentionDistribution.png" height="700px" width="700px" align="center">
 <figcaption> Figure 2: Attention Distribution Colah (6) </figcaption>
 </figure>
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
-
-
-
 
 ## Results
 IMDB(filtered subset) classification
