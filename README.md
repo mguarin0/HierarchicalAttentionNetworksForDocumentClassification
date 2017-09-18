@@ -3,15 +3,15 @@
 The Hierarchical Attention Network is a novel deep learning architecture that takes advantage of the hierarchical structure of documents to construct a detailed representation of the document. As words form sentences and sentences form the document, the Hierarchical Attention Network’s representation of the document uses this hierarchy in order to determine what sentences and what words in those sentences are most important in the classification of the document as a whole.
 
 <figure>
-<img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="1000px" width="1000px" align="right">
-<figcaption> Figure 1: Hierarchical Attention Network Architecture [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdfAccessed) </figcaption>
+<img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="1000px" width="1000px" align="center">
+<figcaption> Figure 1: Hierarchical Attention Network Architecture Zichao (1) </figcaption>
 </figure>
 
 This model uses two levels of LSTM encoders at the word and sentences level in order to build the word and sentence level representations of the document. The attention mechanism is used to attribute importance at the word and sentence level.
 
 <figure>
-<img src="lib/imgs/AttentionDistribution.png" height="700px" width="400px" align="center">
-<figcaption> Figure 2: Attention Distribution [Colah](https://distill.pub/2016/augmented-rnns/#attentional-interfaces) </figcaption>
+<img src="lib/imgs/AttentionDistribution.png" height="400px" width="250px" align="right">
+<figcaption> Figure 2: Attention Distribution Colah (6) </figcaption>
 </figure>
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
@@ -22,7 +22,7 @@ IMDB(filtered subset) classification
 | Algorithms | Testing Accuracy
 | :- | :-
 | Hierarchical Attention Network with LSTM Encoders |  training
-| Hierarchical Attention Network with GRU Encoders as described by [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdfAccessed) |  training
+| Hierarchical Attention Network with GRU Encoders as described by [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) | training
 | Convolutional Neural Network as described by [Yoon](http://www.aclweb.org/anthology/D14-1181) | training
 
 ## IMDB Dataset
@@ -42,7 +42,7 @@ All experiments were performed on the Stanford IMDB dataset which is a natural l
 * CNN (Convolutional Neural Network) in Tensorflow can be trained with `python cnn_master.py --run_type train`, evaluation is performed with `python cnn_master.py --run_type test`
 
 ## References
-1) Zichao, Yang. [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdfAccessed) 25 Aug. 2017.
+1) Zichao, Yang. [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) 25 Aug. 2017.
 2) Jozefowicz, Rafal. [An Empirical Exploration of Recurrent Network Architectures](http://proceedings.mlr.press/v37/jozefowicz15.pdf) Accessed 25 Aug. 2017.
 3) Sutskever, Llya. [Sequence to Sequence Learning with Neural Networks](https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf) Accessed 25 Aug. 2017.
 4) Kim, Yoon. [Convolutional Neural Networks for Sentence Classification](http://www.aclweb.org/anthology/D14-1181) Accessed 25 Aug. 2017.
