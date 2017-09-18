@@ -3,16 +3,19 @@
 The Hierarchical Attention Network is a novel deep learning architecture that takes advantage of the hierarchical structure of documents to construct a detailed representation of the document. As words form sentences and sentences form the document, the Hierarchical Attention Network’s representation of the document uses this hierarchy in order to determine what sentences and what words in those sentences are most important in the classification of the document as a whole.
 
 <figure>
-<img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="600px" width="600px" align="center">
+<img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="800px" width="800px" align="center">
 <figcaption> Figure 1: Hierarchical Attention Network Architecture Zichao (1) </figcaption>
 </figure>
 
+
 This model uses two levels of LSTM encoders at the word and sentences level in order to build the word and sentence level representations of the document. The attention mechanism is used to attribute importance at the word and sentence level.
 
+
 <figure>
-<img src="lib/imgs/AttentionDistribution.jpeg" height="400px" width="400px" align="center">
+<img src="lib/imgs/AttentionDistribution.jpeg" height="800px" width="800px" align="center">
 <figcaption> Figure 2: Attention Distribution Mohandas (6) </figcaption>
 </figure>
+
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
@@ -29,12 +32,12 @@ IMDB(filtered subset) classification
 All experiments were performed on the Stanford IMDB dataset which is a natural language dataset where movie reviews have labels that describe the sentiment of the movie review. There are 8 different classes that describe the sentiment from 0-3 for negative sentiment to 6-10 for positive sentiment, which are mapped down to negative sentiment 0 and positive sentiment 1.
 
 ## Files in this repo
-* Hierarchical Attention Networks with LSTM cells: han.py
-* Hierarchical Attention Networks with GRU cells: han_gru.py
-* Word Level Convolutional Neural Network: cnn.py
-* IMDB data preprocessing: dataProcessing.py other scripts will call this is break down downloaded IMDB data set
-* IMDB download script: getIMDB.sh
-* Paths shared throughout files: utils.py
+* Hierarchical Attention Networks with LSTM cells: [han.py](src/han.py)
+* Hierarchical Attention Networks with GRU cells: [han_gru.py](src/han_gru.py)
+* Word Level Convolutional Neural Network: [cnn.py](src/cnn.py)
+* IMDB data preprocessing: [dataProcessing.py](src/dataProcessing.py) other scripts will call this is break down downloaded IMDB data set
+* IMDB download script: [getIMDB.sh](src/getIMDB.sh)
+* Paths shared throughout files: [utils.py](src/utils.py)
 
 ## To run the experiments contained in this repo
 * HAN (Hierarchical Attention Network with LSTM cells for encoders) in Tensorflow can be trained with `python han_master.py --run_type train`, evaluation is performed with `python han_master.py --run_type test`
