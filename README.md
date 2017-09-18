@@ -3,7 +3,7 @@
 The Hierarchical Attention Network is a novel deep learning architecture that takes advantage of the hierarchical structure of documents to construct a detailed representation of the document. As words form sentences and sentences form the document, the Hierarchical Attention Network’s representation of the document uses this hierarchy in order to determine what sentences and what words in those sentences are most important in the classification of the document as a whole.
 
 <figure>
-<img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="800px" width="800px" align="center">
+<img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="1000px" width="1000px" align="center">
 <figcaption> Figure 1: Hierarchical Attention Network Architecture Zichao (1) </figcaption>
 </figure>
 </br>
@@ -14,9 +14,9 @@ This model uses two levels of LSTM encoders at the word and sentences level in o
 
 <figure>
 <img src="lib/imgs/AttentionDistribution.jpeg" height="800px" width="800px" align="center">
-<figcaption align="center"> Figure 2: Attention Distribution Mohandas (6) </figcaption>
+<figcaption text-align="center"> Figure 2: Attention Distribution Mohandas (6) </figcaption>
 </figure>
-</br>
+<br>
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
