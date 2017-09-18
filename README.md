@@ -10,8 +10,8 @@ The Hierarchical Attention Network is a novel deep learning architecture that ta
 This model uses two levels of LSTM encoders at the word and sentences level in order to build the word and sentence level representations of the document. The attention mechanism is used to attribute importance at the word and sentence level.
 
 <figure>
-<img src="lib/imgs/AttentionDistribution.png" height="900px" width="900px" align="center">
-<figcaption> Figure 2: Attention Distribution Colah (6) </figcaption>
+<img src="lib/imgs/AttentionDistribution.jpeg" height="900px" width="900px" align="center">
+<figcaption> Figure 2: Attention Distribution Mohandas (6) </figcaption>
 </figure>
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
@@ -47,7 +47,7 @@ All experiments were performed on the Stanford IMDB dataset which is a natural l
 3) Sutskever, Llya. [Sequence to Sequence Learning with Neural Networks](https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf) Accessed 25 Aug. 2017.
 4) Kim, Yoon. [Convolutional Neural Networks for Sentence Classification](http://www.aclweb.org/anthology/D14-1181) Accessed 25 Aug. 2017.
 5) Zhou, Peng. [Attention-Based Bidirectional Long Short-Term Memory Networks for Relation Classification](http://aclweb.org/anthology/P/P16/P16-2034.pdf) Accessed 25 Aug. 2017.
-6) Colah, Chris. [Attention and Augmented Recurrent Neural Networks Attention Distribution](https://distill.pub/2016/augmented-rnns/#attentional-interfaces) Accessed 25 Aug. 2017.
+6) Goku, Mohandas. [Interpretability via attentional and memory-based interfaces, using TensorFlow](https://www.oreilly.com/ideas/interpretability-via-attentional-and-memory-based-interfaces-using-tensorflow) Accessed 25 Aug. 2017.
 7) Pappas, Nikolaos. [Multilingual Hierarchical Attention Networks for Document Classification](https://arxiv.org/pdf/1707.00896.pdf) Accessed 25 Aug. 2017.
 8) Wang, Yilin. [Hierarchical Attention Network for Action Recognition in Videos](https://arxiv.org/pdf/1607.06416.pdf) Accessed 25 Aug. 2017.
 9) Seo, Paul Hongsuck. [Progressive Attention Networks for Visual Attribute Prediction](https://arxiv.org/pdf/1606.02393.pdf) Accessed 25 Aug. 2017.
