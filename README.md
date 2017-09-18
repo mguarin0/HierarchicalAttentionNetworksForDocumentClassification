@@ -6,7 +6,7 @@ The Hierarchical Attention Network is a novel deep learning architecture that ta
 <img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="1000px" width="1000px" align="center">
 <figcaption> Figure 1: Hierarchical Attention Network Architecture Zichao (1) </figcaption>
 </figure>
-</br>
+<br>
 
 
 This model uses two levels of LSTM encoders at the word and sentences level in order to build the word and sentence level representations of the document. The attention mechanism is used to attribute importance at the word and sentence level.
@@ -17,9 +17,6 @@ This model uses two levels of LSTM encoders at the word and sentences level in o
 <figcaption> Figure 2: Attention Distribution Mohandas (6) </figcaption>
 </figure>
 <br>
-figcaption { 
-    text-align: center;
-}
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
