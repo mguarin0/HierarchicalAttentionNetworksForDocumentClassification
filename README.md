@@ -14,9 +14,12 @@ This model uses two levels of LSTM encoders at the word and sentences level in o
 
 <figure>
 <img src="lib/imgs/AttentionDistribution.jpeg" height="800px" width="800px" align="center">
-<figcaption text-align="center"> Figure 2: Attention Distribution Mohandas (6) </figcaption>
+<figcaption> Figure 2: Attention Distribution Mohandas (6) </figcaption>
 </figure>
 <br>
+figcaption { 
+    text-align: center;
+}
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
