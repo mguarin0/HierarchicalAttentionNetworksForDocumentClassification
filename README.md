@@ -16,6 +16,9 @@ This model uses two levels of LSTM encoders at the word and sentences level in o
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
+
+
+
 ## Results
 IMDB(filtered subset) classification
 
