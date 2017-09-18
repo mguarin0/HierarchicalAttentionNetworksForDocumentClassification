@@ -13,7 +13,7 @@ This model uses two levels of LSTM encoders at the word and sentences level in o
 
 <figure>
 <img src="lib/imgs/AttentionDistribution.jpeg" height="800px" width="800px" align="center">
-<figcaption> Figure 2: Attention Distribution Mohandas (6) </figcaption>
+<figcaption align="center"> Figure 2: Attention Distribution Mohandas (6) </figcaption>
 </figure>
 
 
