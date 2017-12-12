@@ -5,6 +5,8 @@
 import os
 import subprocess
 import platform
+import urllib
+import tarfile
 
 class prjPaths:
     def __init__(self, getDataset=True):
@@ -29,6 +31,17 @@ class prjPaths:
 
             if not os.path.exists(self.ROOT_DATA_DIR):
                 os.mkdir(path=self.ROOT_DATA_DIR)
-            subprocess.Popen("sh getIMDB.sh {}".format(osType), shell=True, stdout=subprocess.PIPE).wait()
+            filename="{}/aclImdb_v1.tar.gz".format(self.ROOT_DATA_DIR)
+            ACLIMDB_DIR = "{}/aclImdb".format(self.ROOT_DATA_DIR)
+            urllib.request.urlretrieve("http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz", filename)
+            if (filename.endswith("tar.gz")):
+                tar = tarfile.open(filename, "r:gz")
+                tar.extractall(ACLIMDB_DIR)
+                tar.close()
+            elif (filename.endswith("tar")):
+                tar = tarfile.open(filename, "r:")
+                tar.extractall(ACLIMDB_DIR)
+                tar.close()
+            #subprocess.Popen("sh getIMDB.sh {}".format(osType), shell=True, stdout=subprocess.PIPE).wait()
     # end
 # end
