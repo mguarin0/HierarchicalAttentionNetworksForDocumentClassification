@@ -14,13 +14,13 @@ There are two applications of the attention mechanism that attend over of the wo
 ## Results
 IMDB(filtered subset) classification
 
-| Hierarchical Attention Network with GRU Encoders as described by [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) | training
+Hierarchical Attention Network with GRU Encoders as described by [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf): training
 
 ## IMDB Dataset
 All experiments were performed on the Stanford IMDB dataset which is a natural language dataset where movie reviews have labels that describe the sentiment of the movie review. There are 8 different classes that describe the sentiment from 0-3 for negative sentiment to 6-10 for positive sentiment, which are mapped down to negative sentiment 0 and positive sentiment 1.
 
 ## Files in this repo
-* Hierarchical Attention Networks with LSTM cells: [han.py](src/han.py)
+* Hierarchical Attention Networks: [han.py](src/han.py)
 * IMDB data preprocessing: [dataProcessing.py](src/dataProcessing.py) other scripts will call this is break down downloaded IMDB data set
 * Paths shared throughout files: [utils.py](src/utils.py)
 
