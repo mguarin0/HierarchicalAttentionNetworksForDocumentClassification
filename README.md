@@ -14,27 +14,18 @@ There are two applications of the attention mechanism that attend over of the wo
 ## Results
 IMDB(filtered subset) classification
 
-| Algorithms | Testing Accuracy
-| :- | :-
-| Hierarchical Attention Network with LSTM Encoders |  training
 | Hierarchical Attention Network with GRU Encoders as described by [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) | training
-| Convolutional Neural Network as described by [Yoon](http://www.aclweb.org/anthology/D14-1181) | training
 
 ## IMDB Dataset
 All experiments were performed on the Stanford IMDB dataset which is a natural language dataset where movie reviews have labels that describe the sentiment of the movie review. There are 8 different classes that describe the sentiment from 0-3 for negative sentiment to 6-10 for positive sentiment, which are mapped down to negative sentiment 0 and positive sentiment 1.
 
 ## Files in this repo
 * Hierarchical Attention Networks with LSTM cells: [han.py](src/han.py)
-* Hierarchical Attention Networks with GRU cells: [han_gru.py](src/han_gru.py)
-* Word Level Convolutional Neural Network: [cnn.py](src/cnn.py)
 * IMDB data preprocessing: [dataProcessing.py](src/dataProcessing.py) other scripts will call this is break down downloaded IMDB data set
-* IMDB download script: [getIMDB.sh](src/getIMDB.sh)
 * Paths shared throughout files: [utils.py](src/utils.py)
 
 ## To run the experiments contained in this repo
-* HAN (Hierarchical Attention Network with LSTM cells for encoders) in Tensorflow can be trained with `python han_master.py --run_type train`, evaluation is performed with `python han_master.py --run_type test`
-* HAN (Hierarchical Attention Network with GRU cells for encoders) in Tensorflow can be trained with `python han_master_gru.py --run_type train`, evaluation is performed with `python han_master_gru.py --run_type test`
-* CNN (Convolutional Neural Network) in Tensorflow can be trained with `python cnn_master.py --run_type train`, evaluation is performed with `python cnn_master.py --run_type test`
+* HAN (Hierarchical Attention Network with GRU cells for encoders) in Tensorflow can be trained with `python han_master.py --run_type train`, evaluation is performed with `python han_master.py --run_type test`
 
 ## References
 1) Zichao, Yang. [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) 25 Aug. 2017.
