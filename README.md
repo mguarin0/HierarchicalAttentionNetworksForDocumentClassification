@@ -25,7 +25,8 @@ All experiments were performed on the Stanford IMDB dataset which is a natural l
 * Paths shared throughout files: [utils.py](src/utils.py)
 
 ## To run the experiments contained in this repo
-* HAN (Hierarchical Attention Network with GRU cells for encoders) in Tensorflow can be trained with `python han_master.py --run_type train`, evaluation is performed with `python han_master.py --run_type test`
+* HAN can be trained with: `python han_master.py --run_type train`
+* Evaluation can be performed on a trained HAN model with: `python han_master.py --run_type test`
 
 ## References
 1) Zichao, Yang. [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) 25 Aug. 2017.
