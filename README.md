@@ -11,11 +11,6 @@ This model uses two levels of LSTM encoders at the word and sentences level in o
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
-## Results
-IMDB(filtered subset) classification
-
-Hierarchical Attention Network with GRU Encoders as described by [Zichao](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf): training
-
 ## IMDB Dataset
 All experiments were performed on the Stanford IMDB dataset which is a natural language dataset where movie reviews have labels that describe the sentiment of the movie review. There are 8 different classes that describe the sentiment from 0-3 for negative sentiment to 6-10 for positive sentiment, which are mapped down to negative sentiment 0 and positive sentiment 1.
 
