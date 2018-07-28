@@ -24,11 +24,13 @@ def get_flags():
   tf.flags.DEFINE_string("dataset", "imdb",
                          "enter the type of training dataset")
   tf.flags.DEFINE_string("run_type", "val",
-                         "enter train or test to specify run_type (default: val)")
+                         "enter val or test to specify run_type (default: val)")
   tf.flags.DEFINE_integer("log_summaries_every", 30,
                           "Save model summaries after this many steps (default: 30)")
   tf.flags.DEFINE_float("per_process_gpu_memory_fraction", 0.90,
                         "gpu memory to be used (default: 0.90)")
+  tf.flags.DEFINE_boolean("wait_for_checkpoint_files", False,
+                        "wait for model checkpoint file to be created")
 
   FLAGS = tf.flags.FLAGS
   FLAGS._parse_flags()
@@ -122,7 +124,10 @@ if __name__ == '__main__':
       # testing loop
       while True:
 
-        time.sleep(0*MINUTE) # sleep to allow for creation of new checkpoint file
+        if FLAGS.wait_for_checkpoint_files:
+          time.sleep(2*MINUTE) # wait to allow for creation of new checkpoint file
+        else:
+          time.sleep(0*MINUTE) # don't wait for model checkpoint files
 
         # if checkpoint file already evaluated then continue and wait for a new checkpoint file
         if (tf.train.latest_checkpoint(paths.CHECKPOINT_DIR) in all_evaluated_chkpts):
@@ -165,6 +170,6 @@ if __name__ == '__main__':
           print(Counter(losses_accuracies_vars[k]))
 
         filename, ext = os.path.splitext(all_evaluated_chkpts[-1])
-        pickle._dump(losses_accuracies_vars, open(os.path.join(paths.LIB_DIR, FLAGS.dataset, "losses_accuracies_vars_{}.p".format(filename.split("/")[-1]), "wb")))
+        pickle._dump(losses_accuracies_vars, open(os.path.join(paths.LIB_DIR, FLAGS.dataset, "losses_accuracies_vars_{}.p".format(filename.split("/")[-1])), "wb"))
 
     sess.close()

@@ -26,34 +26,38 @@ All experiments were performed on the Stanford IMDB dataset which is a natural l
 * Train the Hierarchical Attention Networks: [han_trainer.py](src/han_trainer.py)
 * Test the Hierarchical Attention Networks: [han_tester.py](src/han_tester.py)
 
+## What you need to run the code in this repo
+* [Docker](https://www.docker.com/)
+* Nvidia GPU with the CUDA driver installed
+
 ## To run the experiments contained in this repo
 
 **To run the model**
 * build the container image from the docker file `docker build -t han:1.0 .`
-* start container `nvidia-docker run -p 6006:6006 -p 8888:8889 -it han:1.0 bash`
+* start container `nvidia-docker run -p 6006:6006 -p 8888:8889 -it "IMAGE_ID" bash`
 * to download and process all data run `python3 run_all.py imdb True` or run the below three commands
 * download the imdb dataset `python3 download.py imdb`
 * create csv file `python3 create_csv.py imdb True`
 * create serialized dataset as binary files `python3 serialize_data.py imdb`
-* start training the han model with `nohup python3 han_trainer --run_type "train" >> train.out &`
+* start training the han model with `nohup python3 han_trainer.py --run_type "train" >> train.out &`
 * start validation the han model with `nohup python3 han_tester.py --run_type "val" >> val.out &`
 * start testing the han model with `nohup python3 han_tester.py --run_type "test" >> test.out &`
 
 Note the attention weights consume lots of vram memory on the gpu and running validation while model is training causes a out of memory exception
 
 **Set up Tensorboard and Jupyter Notebook**
-* create another session in the same container `nvidia-docker exec -it han:1.0 bash`
+* create another session in the same container `nvidia-docker exec -it "CONTAINER_ID" bash`
 * start jupyter notebook in the container `jupyter notebook --no-browser --port=8889 --ip=0.0.0.0 --allow-root` grab the authenication token
 
-* create another session in the same container `nvidia-docker exec -it <container> bash`
+* create another session in the same container `nvidia-docker exec -it "CONTAINER_ID" bash`
 * then run `tensorboard --logdir ../lib/summaries/train/` start tensorboard in the container
 
 * go to your browser on local machine `localhost:6001` for tensorboard
 * go to your browser on local machine `localhost:8890` for tensorboard
 
 if you are working on a remote machine you must set up a tunnel for tensorboard and jupyter tools
-* on host machine `ssh -N -L localhost:6001:localhost:6006 mg@24.161.20.39` set up tunnel for tensorboard
-* on host machine `ssh -N -L localhost:8890:localhost:8888 mg@24.161.20.39` set up tunnel for jupyter notebook
+* on host machine `ssh -N -L localhost:6001:localhost:6006 username@ipaddress` set up tunnel for tensorboard
+* on host machine `ssh -N -L localhost:8890:localhost:8888 username@ipaddress` set up tunnel for jupyter notebook
 
 
 ## Graph of operations for this model
