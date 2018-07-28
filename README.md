@@ -1,35 +1,72 @@
 # Document Classification Comparisons featuring Hierarchical Attention Network
 
-The Hierarchical Attention Network is a novel deep learning architecture that takes advantage of the hierarchical structure of documents to construct a detailed representation of the document. As words form sentences and sentences form the document, the Hierarchical Attention Network’s representation of the document uses this hierarchy in order to determine what sentences and what words in those sentences are most important in the classification of the document as a whole.
+The [Hierarchical Attention Network](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) is a novel deep learning architecture that takes advantage of the hierarchical structure of documents to construct a detailed representation of the document. As words form sentences and sentences form the document, the Hierarchical Attention Networks representation of the document uses this hierarchy in order to determine what sentences and what words in those sentences are most important in the classification of the document as a whole.
 
 <figure>
 <img src="lib/imgs/HierarchicalAttentionNetworksDiagram.png" height="1000px" width="1000px" align="center">
 <figcaption> Figure 1: Hierarchical Attention Network Architecture Zichao (1) </figcaption>
 </figure>
 
+
 This model uses two levels of LSTM encoders at the word and sentences level in order to build the word and sentence level representations of the document. The attention mechanism is used to attribute importance at the word and sentence level.
 
 There are two applications of the attention mechanism that attend over of the word level encoder and the sentence level encoder. These allow the model to construct a representation of the document that attribute greater levels of importance to key sentences and words throughout the document.
 
+
 ## IMDB Dataset
-All experiments were performed on the Stanford IMDB dataset which is a natural language dataset where movie reviews have labels that describe the sentiment of the movie review. There are 8 different classes that describe the sentiment from 0-3 for negative sentiment to 6-10 for positive sentiment, which are mapped down to negative sentiment 0 and positive sentiment 1.
+All experiments were performed on the Stanford IMDB dataset which is a natural language dataset where movie reviews have labels that describe the sentiment of the movie review. This is one of the many datasets used in the original paper [Hierarchical Attention Network](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf). There are 8 different classes that describe the sentiment from 0-3 for negative sentiment to 6-10 for positive sentiment, which are mapped down to negative sentiment 0 and positive sentiment 1.
 
 ## Files in this repo
-* Hierarchical Attention Networks: [han.py](src/han.py)
-* IMDB data preprocessing: [dataProcessing.py](src/dataProcessing.py) other scripts will call this is break down downloaded IMDB data set
+* IMDB download script: [download.py](src/download.py)
+* first step of data preprocessing and create a csv: [create_csv.py](src/create_csv.py)
+* second step of data preprocessing and create serialized dataset as binary files: [serialize_data.py](src/serialize_data.py)
+* IMDB data preprocessing: [dataProcessing.py](src/dataProcessing.py)
 * Paths shared throughout files: [utils.py](src/utils.py)
+* Hierarchical Attention Networks: [han.py](src/han.py)
+* Train the Hierarchical Attention Networks: [han_trainer.py](src/han_trainer.py)
+* Test the Hierarchical Attention Networks: [han_tester.py](src/han_tester.py)
 
 ## To run the experiments contained in this repo
-* HAN can be trained with: `python han_master.py --run_type train`
-* Evaluation can be performed on a trained HAN model with: `python han_master.py --run_type test`
+
+**To run the model**
+* build the container image from the docker file `docker build -t han:1.0 .`
+* start container `nvidia-docker run -p 6006:6006 -p 8888:8889 -it han:1.0 bash`
+* to download and process all data run `python3 run_all.py imdb True` or run the below three commands
+* download the imdb dataset `python3 download.py imdb`
+* create csv file `python3 create_csv.py imdb True`
+* create serialized dataset as binary files `python3 serialize_data.py imdb`
+* start training the han model with `nohup python3 han_trainer --run_type "train" >> train.out &`
+* start validation the han model with `nohup python3 han_tester.py --run_type "val" >> val.out &`
+* start testing the han model with `nohup python3 han_tester.py --run_type "test" >> test.out &`
+
+Note the attention weights consume lots of vram memory on the gpu and running validation while model is training causes a out of memory exception
+
+**Set up Tensorboard and Jupyter Notebook**
+* create another session in the same container `nvidia-docker exec -it han:1.0 bash`
+* start jupyter notebook in the container `jupyter notebook --no-browser --port=8889 --ip=0.0.0.0 --allow-root` grab the authenication token
+
+* create another session in the same container `nvidia-docker exec -it <container> bash`
+* then run `tensorboard --logdir ../lib/summaries/train/` start tensorboard in the container
+
+* go to your browser on local machine `localhost:6001` for tensorboard
+* go to your browser on local machine `localhost:8890` for tensorboard
+
+if you are working on a remote machine you must set up a tunnel for tensorboard and jupyter tools
+* on host machine `ssh -N -L localhost:6001:localhost:6006 mg@24.161.20.39` set up tunnel for tensorboard
+* on host machine `ssh -N -L localhost:8890:localhost:8888 mg@24.161.20.39` set up tunnel for jupyter notebook
+
+
+## Graph of operations for this model
+<figure>
+<img src="lib/imgs/graph_large_attrs_key=_too_large_attrs&limit_attr_size=1024&run=.png" height="1000px" width="1000px" align="center">
+<figcaption> Figure 2: Hierarchical Attention Network model graph operations</figcaption>
+</figure>
+
 
 ## References
-1) Zichao, Yang. [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf) 25 Aug. 2017.
-2) Jozefowicz, Rafal. [An Empirical Exploration of Recurrent Network Architectures](http://proceedings.mlr.press/v37/jozefowicz15.pdf) Accessed 25 Aug. 2017.
-3) Sutskever, Llya. [Sequence to Sequence Learning with Neural Networks](https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf) Accessed 25 Aug. 2017.
-4) Kim, Yoon. [Convolutional Neural Networks for Sentence Classification](http://www.aclweb.org/anthology/D14-1181) Accessed 25 Aug. 2017.
-5) Zhou, Peng. [Attention-Based Bidirectional Long Short-Term Memory Networks for Relation Classification](http://aclweb.org/anthology/P/P16/P16-2034.pdf) Accessed 25 Aug. 2017.
-6) Goku, Mohandas. [Interpretability via attentional and memory-based interfaces, using TensorFlow](https://www.oreilly.com/ideas/interpretability-via-attentional-and-memory-based-interfaces-using-tensorflow) Accessed 25 Aug. 2017.
-7) Pappas, Nikolaos. [Multilingual Hierarchical Attention Networks for Document Classification](https://arxiv.org/pdf/1707.00896.pdf) Accessed 25 Aug. 2017.
-8) Wang, Yilin. [Hierarchical Attention Network for Action Recognition in Videos](https://arxiv.org/pdf/1607.06416.pdf) Accessed 25 Aug. 2017.
-9) Seo, Paul Hongsuck. [Progressive Attention Networks for Visual Attribute Prediction](https://arxiv.org/pdf/1606.02393.pdf) Accessed 25 Aug. 2017.
+Zichao, Yang. [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf)
+
+## TODOs
+* publish trained model files
+* find a way to validate model during model training without causing OOM either by pausing training and validate then return to training
+* visualize trained model weights in jupyter notebook over input text document

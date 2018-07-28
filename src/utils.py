@@ -3,45 +3,47 @@
 """
 
 import os
-import subprocess
-import platform
-import urllib
-import tarfile
+import datetime
+import logging
 
 class prjPaths:
-    def __init__(self, getDataset=True):
-        self.SRC_DIR = os.path.abspath(os.path.curdir)
-        self.ROOT_MOD_DIR = "/".join(self.SRC_DIR.split("/")[:-1])
-        self.ROOT_DATA_DIR = os.path.join(self.ROOT_MOD_DIR, "data")
-        self.LIB_DIR = os.path.join(self.ROOT_MOD_DIR, "lib")
-        self.CHECKPOINT_DIR = os.path.join(self.LIB_DIR, "chkpts")
-        self.CHECKPOINTS_HAN = os.path.join(self.CHECKPOINT_DIR, "han_chkpts/")
-        self.CHECKPOINTS_HAN_GRU = os.path.join(self.CHECKPOINT_DIR, "han_gru_chkpts/")
-        self.CHECKPOINTS_CNN = os.path.join(self.CHECKPOINT_DIR, "cnn_chkpts/")
-        self.LOGS_DIR = os.path.join(self.LIB_DIR, "logs")
+  def __init__(self):
+    """
+    desc: create object containing project paths
+    """
 
-        if getDataset:
-            osType = platform.system()
-            if osType == "Windows":
-                print("manually download data set from 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz'"
-                      " and set getDataset=False when prjPaths is called in *_master.py script")
-                exit(0)
-            elif osType is not "Linux":
-                osType = "OSX"
+    self.SRC_DIR = os.path.abspath(os.path.curdir)
+    self.ROOT_MOD_DIR = "/".join(self.SRC_DIR.split("/")[:-1])
+    self.ROOT_DATA_DIR = os.path.join(self.ROOT_MOD_DIR, "data")
+    self.LIB_DIR = os.path.join(self.ROOT_MOD_DIR, "lib")
+    self.CHECKPOINT_DIR = os.path.join(self.LIB_DIR, "chkpts")
+    self.SUMMARY_DIR = os.path.join(self.LIB_DIR, "summaries")
+    self.LOGS_DIR = os.path.join(self.LIB_DIR, "logs")
 
-            if not os.path.exists(self.ROOT_DATA_DIR):
-                os.mkdir(path=self.ROOT_DATA_DIR)
-            filename="{}/aclImdb_v1.tar.gz".format(self.ROOT_DATA_DIR)
-            ACLIMDB_DIR = "{}/aclImdb".format(self.ROOT_DATA_DIR)
-            urllib.request.urlretrieve("http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz", filename)
-            if (filename.endswith("tar.gz")):
-                tar = tarfile.open(filename, "r:gz")
-                tar.extractall(ACLIMDB_DIR)
-                tar.close()
-            elif (filename.endswith("tar")):
-                tar = tarfile.open(filename, "r:")
-                tar.extractall(ACLIMDB_DIR)
-                tar.close()
-            #subprocess.Popen("sh getIMDB.sh {}".format(osType), shell=True, stdout=subprocess.PIPE).wait()
-    # end
+    pth_exists_else_mk = lambda path: os.mkdir(path) if not os.path.exists(path) else None
+        
+    pth_exists_else_mk(self.ROOT_DATA_DIR)
+    pth_exists_else_mk(self.LIB_DIR)
+    pth_exists_else_mk(self.CHECKPOINT_DIR)
+    pth_exists_else_mk(self.SUMMARY_DIR)
+    pth_exists_else_mk(self.LOGS_DIR)
+  # end
 # end
+
+def get_logger(paths):
+  # TODO logger not logging to file
+  currentTime = str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+  logFileName = os.path.join(paths.LOGS_DIR, "HAN_TxtClassification_{}.log".format(currentTime))
+
+  logger = logging.getLogger(__name__)
+  formatter = logging.Formatter("%(asctime)s:%(name)s:%(message)s")
+
+  fileHandler = logging.FileHandler(logFileName)
+  fileHandler.setLevel(logging.INFO)
+  fileHandler.setFormatter(formatter)
+
+  logger.addHandler(fileHandler)
+
+  return logger
+# end
+
