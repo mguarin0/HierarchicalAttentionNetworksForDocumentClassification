@@ -70,7 +70,7 @@ if you are working on a remote machine you must set up a tunnel for tensorboard 
 <img src="lib/imgs/training_accuracy.png" height="300px" width="1000px" align="center">
 Shown above is the training accuracy achieved during training of the HAN model after 120 thousand training steps on the IMDB dataset where the labels are converted to binary classes. As seen the maximum training accuracy achieved is approximately 64% accuracy, which is significantly less than that reported by the original paper.
 
-<img src="lib/imgs/training_loss.png" height="400px" width="600px" align="center">
+<img src="lib/imgs/training_loss.png" height="300px" width="1000px" align="center">
 Shown above is the training loss achieved during training of the HAN model after 120 thousand training steps on the IMDB dataset where the labels are converted to binary classes. The training loss seems to be steadily decreasing.
 
 ## References
